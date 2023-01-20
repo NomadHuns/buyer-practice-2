@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import shop.mtcoding.buyer.model.Product;
 import shop.mtcoding.buyer.model.ProductRepository;
+import shop.mtcoding.buyer.model.Purchase;
 import shop.mtcoding.buyer.model.PurchaseRepository;
 
 @Service
@@ -40,6 +41,24 @@ public class PurchaseService {
             return -1;
         }
         result = purchaseRepository.insert(principalId, productId, count);
+        if (result != 1) {
+            return -1;
+        }
+        return 1;
+    }
+
+    @Transactional
+    public int removePurchase(Purchase purchase){
+        Product product = productRepository.findById(purchase.getProductId());
+        if (product == null) {
+            return -1;
+        }
+        int result = purchaseRepository.delete(purchase.getId());
+        if (result != 1) {
+            return -1;
+        }
+        result = productRepository.updateById(product.getId(), product.getName(), product.getPrice(),
+                product.getQty() + purchase.getCount());
         if (result != 1) {
             return -1;
         }

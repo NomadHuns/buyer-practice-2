@@ -20,7 +20,7 @@
                 <td>${product.createdAtToString}</td>
             </tr>
         </table>
-        <c:if test="${principal == null}" >
+        <c:if test="${principal != null}" >
         <form action="/product/buy" method="post">
             <input type="hidden" name="productId" value="${product.id}">
             <select name="count">
