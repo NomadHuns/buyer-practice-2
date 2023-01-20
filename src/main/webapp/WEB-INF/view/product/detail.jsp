@@ -12,15 +12,17 @@
                 <th>재고</th>
                 <th>등록일</th>
             </tr>
-            <c:forEach items="${productList}" var="product">
             <tr>
                 <td>${product.id}</td>
-                <td><a href="/product/${product.id}">${product.name}</a></td>
+                <td>${product.name}</td>
                 <td>${product.price}원</td>
                 <td>${product.qty}개</td>
                 <td>${product.createdAtToString}</td>
             </tr>
-            </c:forEach>
         </table>
+        <form action="/product/${product.id}/buy" method="post">
+            <input type="number" name="count" min="1" max="${product.qty}" value="1">
+            <button type="submit">구매</button>
+        </form>
 
         <%@ include file="../layout/footer.jsp" %>
