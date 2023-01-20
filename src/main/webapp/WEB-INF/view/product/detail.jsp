@@ -20,9 +20,16 @@
                 <td>${product.createdAtToString}</td>
             </tr>
         </table>
-        <form action="/product/${product.id}/buy" method="post">
-            <input type="number" name="count" min="1" max="${product.qty}" value="1">
+        <c:if test="${principal == null}" >
+        <form action="/product/buy" method="post">
+            <input type="hidden" name="productId" value="${product.id}">
+            <select name="count">
+                <c:forEach var="numb" begin="1" end="${product.qty}">
+                    <option value="${numb}">${numb}</option>
+                </c:forEach>
+            </select>
             <button type="submit">구매</button>
         </form>
+        </c:if>
 
         <%@ include file="../layout/footer.jsp" %>

@@ -27,10 +27,4 @@
             qty = #{qty}
 		where id = #{id}
 	</update>
-
-	<update id="updateQtyByID">
-		update product_tb 
-		set qty = qty - #{count}
-		where id = #{id}
-	</update>
 </mapper>
